@@ -1,0 +1,133 @@
+---
+interface Props {
+  particleCount?: number;
+  color?: string;
+  connectionDistance?: number;
+}
+
+const {
+  particleCount = 50,
+  color = "rgba(59, 130, 246, 0.5)",
+  connectionDistance = 150
+} = Astro.props;
+---
+
+<canvas
+  id="particles-canvas"
+  class="absolute inset-0 w-full h-full pointer-events-none"
+  data-particle-count={particleCount}
+  data-color={color}
+  data-connection-distance={connectionDistance}
+></canvas>
+
+<script>
+  interface Particle {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    size: number;
+  }
+
+  const canvas = document.getElementById('particles-canvas') as HTMLCanvasElement;
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      const particleCount = parseInt(canvas.dataset.particleCount || '50');
+      const color = canvas.dataset.color || 'rgba(59, 130, 246, 0.5)';
+      const connectionDistance = parseInt(canvas.dataset.connectionDistance || '150');
+
+      let particles: Particle[] = [];
+      let animationId: number;
+
+      const resize = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      };
+
+      const createParticles = () => {
+        particles = [];
+        for (let i = 0; i < particleCount; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            size: Math.random() * 2 + 1
+          });
+        }
+      };
+
+      const drawParticle = (p: Particle) => {
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      };
+
+      const drawConnection = (p1: Particle, p2: Particle, distance: number) => {
+        const opacity = 1 - (distance / connectionDistance);
+        ctx.strokeStyle = color.replace(/[\d.]+\)$/, `${opacity * 0.5})`);
+        ctx.lineWidth = 0.5;
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.stroke();
+      };
+
+      const updateParticle = (p: Particle) => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Bounce off edges
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+        // Keep within bounds
+        p.x = Math.max(0, Math.min(canvas.width, p.x));
+        p.y = Math.max(0, Math.min(canvas.height, p.y));
+      };
+
+      const animate = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Update and draw particles
+        particles.forEach(p => {
+          updateParticle(p);
+          drawParticle(p);
+        });
+
+        // Draw connections
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < connectionDistance) {
+              drawConnection(particles[i], particles[j], distance);
+            }
+          }
+        }
+
+        animationId = requestAnimationFrame(animate);
+      };
+
+      // Initialize
+      resize();
+      createParticles();
+      animate();
+
+      // Handle resize
+      window.addEventListener('resize', () => {
+        resize();
+        createParticles();
+      });
+
+      // Cleanup on page navigation
+      document.addEventListener('astro:before-swap', () => {
+        cancelAnimationFrame(animationId);
+      });
+    }
+  }
+</script>

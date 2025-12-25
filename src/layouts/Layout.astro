@@ -1,0 +1,84 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Empire Inc. - Build Your Business Empire",
+  description = "From zero to billionaire. Master markets, compete globally, earn while you sleep. The ultimate business simulation game."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0f172a" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts loaded via CSS from /fonts/lufga-webfont/ -->
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og-image.png" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <title>{title}</title>
+
+    <!-- Styles -->
+    <style is:global>
+      @import "../styles/global.css";
+    </style>
+  </head>
+  <body class="antialiased">
+    <slot />
+
+    <!-- Alpine.js -->
+    <script>
+      import Alpine from 'alpinejs';
+
+      // Initialize Alpine
+      window.Alpine = Alpine;
+
+      // Custom Alpine plugins/directives
+      Alpine.directive('typing', (el, { expression }) => {
+        const text = expression;
+        let index = 0;
+        el.textContent = '';
+
+        const type = () => {
+          if (index < text.length) {
+            el.textContent += text.charAt(index);
+            index++;
+            setTimeout(type, 100);
+          }
+        };
+
+        // Start typing when element is visible
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              type();
+              observer.disconnect();
+            }
+          });
+        });
+
+        observer.observe(el);
+      });
+
+      Alpine.start();
+    </script>
+  </body>
+</html>
