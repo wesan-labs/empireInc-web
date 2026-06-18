@@ -11,7 +11,7 @@ import Layout from '../layouts/Layout.astro';
       <h1 class="text-4xl font-bold mb-8">Privacy Policy for Empire Inc</h1>
       
       <p class="text-slate-400 mb-8">
-        <strong>Last Updated:</strong> January 7, 2026
+        <strong>Last Updated:</strong> June 18, 2026
       </p>
 
       <div class="prose prose-invert max-w-none space-y-6">
@@ -28,24 +28,30 @@ import Layout from '../layouts/Layout.astro';
           <h3 class="text-xl font-semibold mb-2">2.1 Information You Provide</h3>
           <ul class="list-disc pl-6 space-y-2">
             <li><strong>Account Information:</strong> Email address, username, and password when you create an account</li>
+            <li><strong>Sign-In Providers:</strong> If you sign in with Google or Apple, we receive your name and email address from that provider</li>
             <li><strong>Profile Information:</strong> Display name, avatar preferences</li>
-            <li><strong>Payment Information:</strong> Processed securely through Apple App Store/Google Play Store</li>
+            <li><strong>Payment Information:</strong> Purchases and subscriptions are processed securely through the Apple App Store / Google Play Store and our subscription provider (RevenueCat). We receive your purchase history but never your full card details</li>
           </ul>
 
           <h3 class="text-xl font-semibold mb-2 mt-4">2.2 Automatically Collected Information</h3>
           <ul class="list-disc pl-6 space-y-2">
-            <li><strong>Device Information:</strong> Device type, operating system, unique device identifiers</li>
+            <li><strong>Device Information:</strong> Device type, operating system, and unique device identifiers</li>
+            <li><strong>Advertising Identifier:</strong> Your device's advertising ID (Google Advertising ID / Apple IDFA), used to show ads and measure ad performance for non-premium users</li>
+            <li><strong>Push Token:</strong> A push notification token so we can send you game notifications</li>
             <li><strong>Usage Data:</strong> Game progress, in-app actions, session duration</li>
-            <li><strong>Analytics Data:</strong> App performance, crash reports, feature usage</li>
+            <li><strong>Analytics Data:</strong> App performance, crash reports, and feature usage</li>
           </ul>
 
           <h3 class="text-xl font-semibold mb-2 mt-4">2.3 Third-Party Services</h3>
-          <p>We use the following third-party services:</p>
+          <p>We use the following third-party services, which may collect or receive some of the data described above:</p>
           <ul class="list-disc pl-6 space-y-2">
             <li><strong>Supabase:</strong> Database and authentication</li>
-            <li><strong>RevenueCat:</strong> Subscription management</li>
-            <li><strong>Google AdMob:</strong> Advertising (for non-premium users)</li>
-            <li><strong>Sentry:</strong> Error tracking and performance monitoring</li>
+            <li><strong>Google Sign-In &amp; Apple Sign-In:</strong> Authentication</li>
+            <li><strong>RevenueCat:</strong> Subscription and purchase management</li>
+            <li><strong>PostHog:</strong> Product analytics (in-app actions and usage)</li>
+            <li><strong>Sentry:</strong> Crash reporting and performance monitoring</li>
+            <li><strong>Google AdMob:</strong> Advertising for non-premium users</li>
+            <li><strong>Ad Mediation Partners:</strong> Through AdMob mediation, ads may also be served and measured by AppLovin, Unity Ads, Pangle (ByteDance), and ironSource. These partners may receive your advertising identifier to serve and measure ads</li>
           </ul>
         </section>
 
@@ -66,7 +72,8 @@ import Layout from '../layouts/Layout.astro';
           <h2 class="text-2xl font-semibold mb-4">4. Information Sharing</h2>
           <p>We do not sell your personal information. We may share information with:</p>
           <ul class="list-disc pl-6 space-y-2">
-            <li><strong>Service Providers:</strong> Third-party companies that help us operate the App</li>
+            <li><strong>Service Providers:</strong> Third-party companies that help us operate the App (e.g. Supabase, RevenueCat, PostHog, Sentry)</li>
+            <li><strong>Advertising Partners:</strong> For non-premium users, your advertising identifier and ad-interaction data are shared with Google AdMob and its mediation partners (AppLovin, Unity Ads, Pangle / ByteDance, ironSource) to show and measure personalized ads</li>
             <li><strong>Legal Requirements:</strong> When required by law or to protect our rights</li>
             <li><strong>Business Transfers:</strong> In connection with a merger or acquisition</li>
           </ul>
@@ -104,14 +111,17 @@ import Layout from '../layouts/Layout.astro';
         <section>
           <h2 class="text-2xl font-semibold mb-4">8. Advertising</h2>
           <p>
-            Non-premium users may see advertisements. You can remove ads by subscribing to our premium plans.
+            Non-premium users may see advertisements served through Google AdMob and its mediation partners (AppLovin, Unity Ads, Pangle / ByteDance, ironSource). These services may use your device's advertising identifier to show and measure personalized ads.
+          </p>
+          <p class="mt-2">
+            Where required, we ask for your consent before serving personalized ads (via Google's User Messaging Platform on Android and App Tracking Transparency on iOS). You can reset or limit ad tracking at any time in your device settings, and you can remove ads entirely by subscribing to a premium plan.
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-semibold mb-4">9. Data Retention</h2>
+          <h2 class="text-2xl font-semibold mb-4">9. Data Retention &amp; Deletion</h2>
           <p>
-            We retain your data as long as your account is active. You can request deletion by contacting us.
+            We retain your data as long as your account is active. You can permanently delete your account and all associated data at any time directly in the App via <strong>Settings &rarr; Delete Account</strong>, or by emailing <a href="mailto:privacy@empireinc.app" class="text-blue-400 hover:underline">privacy@empireinc.app</a>. Deletion is permanent and removes your progress, businesses, and personal data.
           </p>
         </section>
 
