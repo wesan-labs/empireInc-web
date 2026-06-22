@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.empireinc.app",
+      "sha256_cert_fingerprints": [
+        "1B:0D:70:DB:C1:16:63:F4:C6:FA:6C:F4:9F:A5:B0:61:C7:97:2E:CE:3E:E8:0C:AA:83:67:EF:D2:7C:7C:04:59"
+      ]
+    }
+  }
+]
